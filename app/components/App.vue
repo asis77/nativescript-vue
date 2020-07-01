@@ -1,46 +1,45 @@
 <template>
     <Page class="page">
         <ActionBar class="action-bar" :title="title()"></ActionBar>
+        <!-- <ActionBar :title="title()">
+            <NavigationButton></NavigationButton>
+            <ActionItem ios:position="right">
+                <Button @tap="add" class="-outline" text="Add Person" />
+            </ActionItem>
+        </ActionBar> -->
 
         <BottomNavigation>
             <TabStrip>
                 <TabStripItem>
                     <Label text="Person"></Label>
-                    <!-- <Image src="~/assets/images/edit.png"></Image> -->
                 </TabStripItem>
                 <TabStripItem>
                     <Label text="Year"></Label>
-                    <!-- <Image src="~/assets/images/edit.png"></Image> -->
                 </TabStripItem>
                 <TabStripItem>
                     <Label text="Logout"></Label>
-                    <!-- <Image src="~/assets/images/edit.png"></Image> -->
                 </TabStripItem>
             </TabStrip>
 
             <TabContentItem>
                 <StackLayout class="form" row="0" col="0">
-                    <Button text="Add Person" v-if="!isAdd && !isEdit" @tap="add" class="btn btn-primary" />
+                    <!-- <Button text="Add Person"  v-if="!isAdd && !isEdit" @tap="add" class="-outline" /> -->
                     <StackLayout v-if="isAdd || isEdit">
                         <StackLayout class="input-field">
-                            <Label text="First Name" class="label font-weight-bold" />
-                            <TextField class="input" v-model="input.firstname" />
-                            <StackLayout class="hr-light"></StackLayout>
+                            <TextField class="-border" hint="First name" v-model="input.firstname" />
                         </StackLayout>
                         <StackLayout class="input-field">
-                            <Label text="Last Name" class="label font-weight-bold" />
-                            <TextField class="input" v-model="input.lastname" />
-                            <StackLayout class="hr-light"></StackLayout>
+                            <TextField class="-border" hint="Last name" v-model="input.lastname" />
                         </StackLayout>
                         <GridLayout rows="auto, auto" columns="*, *">
-                            <Button text="Save" @tap="save" class="btn btn-primary" row="0" col="0" />
-                            <Button text="Cancel" @tap="cancel" class="btn btn-primary" row="0" col="1" colSpan="2"  />
+                            <Button text="Save" @tap="save" class="-outline" row="0" col="0" />
+                            <Button text="Cancel" @tap="cancel" class="-outline" row="0" col="1" colSpan="2"  />
                         </GridLayout>
                     </StackLayout>
                     <ScrollView orientation="vertical" height="100%" v-if="isList">
                         <ListView for="person in $store.state.data" row="1" col="0">
                             <v-template>
-                                <GridLayout columns="*, 35, 35" class="list-group-item">
+                                <GridLayout columns="*, 35, 35" class="-separator">
                                     <Label col="0" v-bind:text="person.firstname + ' ' + person.lastname" />
                                     <Image col="1" src="~/assets/images/edit.png" @tap="edit(person)" width="16" height="16" vericalAlignment="center"/>
                                     <Image col="2" src="~/assets/images/delete.png" @tap="remove(person)" width="16" height="16" vericalAlignment="center"/>
@@ -57,10 +56,6 @@
                 </GridLayout>
             </TabContentItem>
         </BottomNavigation>
-
-
-
-
     </Page>
 </template>
 
@@ -139,10 +134,10 @@
         background-color: #53ba82;
         color: #ffffff;
     }
-    .form {
+    /* .form {
         padding: 10;
     }
     .list-group-item {
         padding: 10;
-    }
+    } */
 </style>
