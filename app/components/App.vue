@@ -1,36 +1,66 @@
 <template>
     <Page class="page">
         <ActionBar class="action-bar" :title="title()"></ActionBar>
-        <StackLayout class="form" row="0" col="0">
-            <Button text="Add Person" v-if="!isAdd && !isEdit" @tap="add" class="btn btn-primary" />
-            <StackLayout v-if="isAdd || isEdit">
-                <StackLayout class="input-field">
-                    <Label text="First Name" class="label font-weight-bold" />
-                    <TextField class="input" v-model="input.firstname" />
-                    <StackLayout class="hr-light"></StackLayout>
-                </StackLayout>
-                <StackLayout class="input-field">
-                    <Label text="Last Name" class="label font-weight-bold" />
-                    <TextField class="input" v-model="input.lastname" />
-                    <StackLayout class="hr-light"></StackLayout>
-                </StackLayout>
-                <GridLayout rows="auto, auto" columns="*, *">
-                    <Button text="Save" @tap="save" class="btn btn-primary" row="0" col="0" />
-                    <Button text="Cancel" @tap="cancel" class="btn btn-primary" row="0" col="1" colSpan="2"  />
-                </GridLayout>
-            </StackLayout>
-            <ScrollView orientation="vertical" height="100%" v-if="isList">
-                <ListView for="person in $store.state.data" row="1" col="0">
-                    <v-template>
-                        <GridLayout columns="*, 40, 40" class="list-group-item">
-                            <Label col="0" v-bind:text="person.firstname + ' ' + person.lastname" />
-                            <Image col="1" src="~/assets/images/edit.png" style="background:green;padding:5;border-radius:5" @tap="edit(person)" width="25" height="25" class="right" vericalAlignment="center"/>
-                            <Image col="2" src="~/assets/images/delete.png" style="background:red;padding:5;border-radius:5" @tap="remove(person)" width="25" height="25" class="right" vericalAlignment="center"/>
+
+        <BottomNavigation>
+            <TabStrip>
+                <TabStripItem>
+                    <Label text="Person"></Label>
+                    <!-- <Image src="~/assets/images/edit.png"></Image> -->
+                </TabStripItem>
+                <TabStripItem>
+                    <Label text="Year"></Label>
+                    <!-- <Image src="~/assets/images/edit.png"></Image> -->
+                </TabStripItem>
+                <TabStripItem>
+                    <Label text="Logout"></Label>
+                    <!-- <Image src="~/assets/images/edit.png"></Image> -->
+                </TabStripItem>
+            </TabStrip>
+
+            <TabContentItem>
+                <StackLayout class="form" row="0" col="0">
+                    <Button text="Add Person" v-if="!isAdd && !isEdit" @tap="add" class="btn btn-primary" />
+                    <StackLayout v-if="isAdd || isEdit">
+                        <StackLayout class="input-field">
+                            <Label text="First Name" class="label font-weight-bold" />
+                            <TextField class="input" v-model="input.firstname" />
+                            <StackLayout class="hr-light"></StackLayout>
+                        </StackLayout>
+                        <StackLayout class="input-field">
+                            <Label text="Last Name" class="label font-weight-bold" />
+                            <TextField class="input" v-model="input.lastname" />
+                            <StackLayout class="hr-light"></StackLayout>
+                        </StackLayout>
+                        <GridLayout rows="auto, auto" columns="*, *">
+                            <Button text="Save" @tap="save" class="btn btn-primary" row="0" col="0" />
+                            <Button text="Cancel" @tap="cancel" class="btn btn-primary" row="0" col="1" colSpan="2"  />
                         </GridLayout>
-                    </v-template>
-                </ListView>
-            </ScrollView>
-        </StackLayout>
+                    </StackLayout>
+                    <ScrollView orientation="vertical" height="100%" v-if="isList">
+                        <ListView for="person in $store.state.data" row="1" col="0">
+                            <v-template>
+                                <GridLayout columns="*, 35, 35" class="list-group-item">
+                                    <Label col="0" v-bind:text="person.firstname + ' ' + person.lastname" />
+                                    <Image col="1" src="~/assets/images/edit.png" @tap="edit(person)" width="16" height="16" vericalAlignment="center"/>
+                                    <Image col="2" src="~/assets/images/delete.png" @tap="remove(person)" width="16" height="16" vericalAlignment="center"/>
+                                </GridLayout>
+                            </v-template>
+                        </ListView>
+                    </ScrollView>
+                </StackLayout>
+            </TabContentItem>
+
+            <TabContentItem>
+                <GridLayout>
+                    <Label text="Content2"></Label>
+                </GridLayout>
+            </TabContentItem>
+        </BottomNavigation>
+
+
+
+
     </Page>
 </template>
 
@@ -82,6 +112,7 @@
             this.isList = true;
         },
         title() {
+            return 'WCB';
             if(this.isAdd)
                 return 'Add Person';
             else if(this.isEdit)
